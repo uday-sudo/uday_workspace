@@ -1,0 +1,36 @@
+diff --git a/setup.py b/../setup.py
+index eeccfa7..ca9ce5b 100755
+--- a/setup.py
++++ b/../setup.py
+@@ -2,6 +2,7 @@
+ 
+ #Newline added
+ # Newline added from the browser
++# A Line for Patch
+ 
+ from setuptools import setup, find_packages
+ import platform
+@@ -30,6 +31,7 @@ elif platform.system() != 'Linux':
+         'Please contact the author if you know any virtual joystick driver for your system.')
+ 
+ # https://stackoverflow.com/questions/20288711/
++# A Line for Patch
+ from setuptools.command.install import install
+ class PostInstallCommand(install):
+     # vJoy_url cannot be cached from the previous conditionals.
+@@ -44,6 +46,7 @@ class PostInstallCommand(install):
+                 'If you need to install this driver, you can do so anytime by visiting ' + vJoy_url)
+             answer = ctypes.windll.user32.MessageBoxW(0,
+                 'Yoke was installed succesfully, but can only work if the correct vJoy driver is installed. '
++ 
+                 'The driver for Windows ' + platform.release() + ', version ' + platform.version() + ' can be found at:\n\n' + vJoy_url + '\n\n'
+                 'Click OK if you want to download the installer now, or Cancel otherwise.',
+                 'vJoy driver required', 33) # question prompt (33), OK (answer == 1) and Cancel (answer == 2) buttons
+@@ -51,6 +54,7 @@ class PostInstallCommand(install):
+                 import webbrowser
+                 webbrowser.open_new(vJoy_url)
+         install.run(self)
++# A Line for Patch
+ 
+ setup(
+     name='yoke',

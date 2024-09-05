@@ -1,0 +1,7 @@
+#Commands to create and enter docker
+source /home/.devtools/tools/env.sh
+efdocker run gcc7 --name uday_gcc7
+docker exec -ti uday_gcc7 bash
+
+
+

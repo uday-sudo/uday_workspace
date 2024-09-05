@@ -1,0 +1,7 @@
+total 20
+drwxr-xr-x 2 root root 4096 Sep  2 06:54 dest
+drwxr-xr-x 2 root root 4096 Sep  2 08:06 files
+drwxr-xr-x 3 root root 4096 Sep  2 07:02 something
+-rw-r--r-- 1 root root  872 Sep  2 06:59 learning.txt
+-rw-r--r-- 1 root root  142 Sep  2 05:44 commands.txt
+-rw-r--r-- 1 root root    0 Sep  2 08:12 lsoutput.txt

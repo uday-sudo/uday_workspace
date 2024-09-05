@@ -1,0 +1,58 @@
+
+# Commands
+
+pwd -> present working directory path
+ls : -l -> List with details
+     -a -> Show hidden content
+     -S -> Sort by file size
+
+cat: -b -> Give number of non blank lines
+     -n -> Used to add numbers to all lines
+     -s -> Used to squeze all blank lines to one
+     -E -> show $ at EOL
+
+grep: -i -> Case insensitive
+      -n -> Show line numbers
+      -v -> Return the lines where content is not found
+      -c -> Count the number of lines
+      -r -> Recursive Grep in directory and sub directories
+
+sort: -r -> reverse order
+      -f -> ignore case
+      -n -> sort based on numeric value
+
+cp:  -n -> Do not overwrite files
+     -u -> Update the destination file only if it is different from source file
+     -i -> interactive mode
+     -R -> Copies hidden files also
+     -v -> verbose
+
+mv:  -u -> Update the destination file only if it is different from source file
+     -i -> interactive mode
+     -v -> verbose
+
+rmdir: -p -> Remove both parent and child directory
+       -v -> verbose
+
+rm:  -r -> recursive
+
+find <path> -name/iname <pattern>
+     -type d/f  -> specify file or directory
+     -perm 0777 -> find files with 0777 permissions
+     ! -perm 0777 -> find files without 0777 permissions
+     -empty -> Find all empty files or directories
+     -user -> Find based on user
+     -group -> Find based on Group
+     -mtime num -> Files modified in last num days 
+     -atime num -> Files accesed in last num days 
+     -mmin num -> Files modified in last num minutes
+     -size num -> Files of size num
+
+find / -size 50M   -> 50 MB files
+find / -size +50 -size -100    -> 50 to 100MB
+
+
+find / -mtime +50 -mtime -100   -> Find last 50-100 days modified files
+find / -mmin -60 -> Files modified in last hour
+
+find <path> -type <f/d> -name <pattern> -exec chmod 644 {} \; 

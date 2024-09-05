@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 3.20)
+project(my-project)
+
+if(WIN32)
+  add_executable(my-app main_windows.cpp)
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+  add_executable(my-app main_linux.cpp)
+else()
+  add_executable(my-app main.cpp)
+endif()
