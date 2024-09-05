@@ -2,19 +2,46 @@ cmake_minimum_required(VERSION 3.10)
 
 project(testing VERSION 1.0)
 
-set(CXX_STANDARD 17)
-set(CXX_STANDARD_REQUIRED On)
+#Define Compiler options
+set(COMPILER_OPTIONS -Wall -Wextra -Werror -O2)
 
+add_compile_options(${COMPILER_OPTIONS})
+
+add_subdirectory(sample)
+#Add a static and an dynamic library
 add_library(sqrt STATIC sqrt/sqrt.cxx)
-add_library(square STATIC square/square.cxx)
+add_library(square SHARED square/square.cxx)
 
 target_include_directories(sqrt PUBLIC ${CMAKE_SOURCE_DIR}/include)
-target_include_directories(square PUBLIC ${CMAKE_SOURCE_DIR}/include)
+target_include_directories(sqrt PUBLIC ${CMAKE_SOURCE_DIR}/include)
+target_include_directories(MathFunctions PUBLIC ${CMAKE_SOURCE_DIR}/sample)
 
+
+# An Example Message
+message(STATUS "Compile options: ${COMPILER_OPTIONS}")
+
+#Adding command to generate an integer number list txt file
+add_custom_target(
+  copy_files ALL
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_SOURCE_DIR}/include
+  COMMAND seq -s ' ' 1 50 > ${CMAKE_SOURCE_DIR}/nums.txt
+  COMMAND mv ${CMAKE_SOURCE_DIR}/nums.txt ${CMAKE_BINARY_DIR}
+  COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_SOURCE_DIR}/sq*/*.h ${CMAKE_SOURCE_DIR}/include/
+  COMMENT "Copying Headers"
+)
 
 add_executable(testing testing.cxx)
 
+
 target_link_libraries(testing 
+              PRIVATE MathFunctions
               PRIVATE sqrt 
               PRIVATE square
              )
+
+message(STATUS "\n\n\n ----------- This is the root directory")
+message(STATUS "SOURCE_DIR = ${CMAKE_SOURCE_DIR}")
+message(STATUS "CURRENT_SOURCE_DIR = ${CMAKE_CURRENT_SOURCE_DIR}")
+message(STATUS "BINARY_DIR = ${CMAKE_BINARY_DIR}")
+message(STATUS "CURRENT_BINARY_DIR = ${CMAKE_CURRENT_BINARY_DIR}")
+message(STATUS " ----------- This is the root directory\n\n\n")

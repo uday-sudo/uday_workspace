@@ -3,6 +3,7 @@
 
 #include "sqrt.h"
 #include "square.h"
+#include "MathFunctions.h"
 
 int main(int argc, char* argv[])
 { if (argc !=2) {
@@ -11,7 +12,7 @@ int main(int argc, char* argv[])
   }
   const double inputValue = std::stod(argv[1]);
 
-  const double outputValue = stat::sqrt(inputValue);
+  const double outputValue = mathfunctions::sqrt(inputValue);//stat::sqrt(inputValue);
   const double outputValue2 = share::square(inputValue);
   std::cout << "\n\nThe square root of " << inputValue << " is " << outputValue << std::endl;
   std::cout << "\n\nThe square of " << inputValue << " is " << outputValue2 << std::endl;
