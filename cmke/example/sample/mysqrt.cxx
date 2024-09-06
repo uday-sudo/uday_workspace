@@ -15,7 +15,7 @@ double mysqrt(double x)
   double start = 0, end = std::max(x,1.0d), ans = 0;
   while (start <= end) {
     double mid = (start + end) / 2;
-    std::cout << "start = "<<start << " | mid = " << mid << " | end = " << end << std::endl;
+//    std::cout << "start = "<<start << " | mid = " << mid << " | end = " << end << std::endl;
     double sqr = mid * mid;
     if (sqr == x)
         return mid;

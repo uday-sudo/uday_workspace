@@ -24,11 +24,10 @@ message(STATUS "Compile options: ${COMPILER_OPTIONS}")
 add_custom_target(
   copy_files ALL
   COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_SOURCE_DIR}/include
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_SOURCE_DIR}/files
-  COMMAND seq 1 40 > ${CMAKE_SOURCE_DIR}/files/nums.txt
+  COMMAND seq -s ' ' 1 50 > ${CMAKE_SOURCE_DIR}/nums.txt
+  COMMAND mv ${CMAKE_SOURCE_DIR}/nums.txt ${CMAKE_BINARY_DIR}
   COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_SOURCE_DIR}/sq*/*.h ${CMAKE_SOURCE_DIR}/include/
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/files/ ${CMAKE_BINARY_DIR}/files/
-  COMMENT "Copying Files"
+  COMMENT "Copying Headers"
 )
 
 add_executable(executable testing.cxx)
