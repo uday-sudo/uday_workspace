@@ -4,6 +4,7 @@ project(testing VERSION 1.0)
 
 #Define Compiler options
 set(COMPILER_OPTIONS -Wall -Wextra -Werror -O2)
+set(FILES_TO_COPY nums.txt nums1.txt nums2.txt nums3.txt)
 
 add_compile_options(${COMPILER_OPTIONS})
 
@@ -20,16 +21,23 @@ target_include_directories(MathFunctions PUBLIC ${CMAKE_SOURCE_DIR}/sample)
 # An Example Message
 message(STATUS "Compile options: ${COMPILER_OPTIONS}")
 
-#Adding command to generate an integer number list txt file
-add_custom_target(
-  copy_files ALL
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_SOURCE_DIR}/include
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_SOURCE_DIR}/files
-  COMMAND seq 1 40 > ${CMAKE_SOURCE_DIR}/files/nums.txt
-  COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_SOURCE_DIR}/sq*/*.h ${CMAKE_SOURCE_DIR}/include/
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/files/ ${CMAKE_BINARY_DIR}/files/
-  COMMENT "Copying Files"
-)
+# Custom command for build folder
+foreach(FILE ${FILES_TO_COPY})
+  add_custom_command(
+    OUTPUT ${CMAKE_BINARY_DIR}/files/${FILE}
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_SOURCE_DIR}/files/${FILE} ${CMAKE_BINARY_DIR}/files/${FILE}
+    DEPENDS ${CMAKE_SOURCE_DIR}/files/${FILE}
+    COMMENT "Copying ${FILE}"
+  )
+endforeach()
+
+foreach(FILE ${FILES_TO_COPY})
+  add_custom_target(
+    Copy_${FILE} ALL
+    DEPENDS ${CMAKE_BINARY_DIR}/files/${FILE}
+  )
+endforeach()
+
 
 add_executable(executable testing.cxx)
 
